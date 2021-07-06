@@ -585,6 +585,9 @@ class Fight {
 					delete u.buffs[9634];
 					u.buffs[768] = true;
 				}
+				if (i === 29232 && ev.type === "applydebuff") { // Fungal Bloom
+					u.buffs[29232] = true;
+				}
 				u.buffs[i] = true;
 				[_,enemies] = this.eventToFriendliesAndEnemies(ev, "target");
 				for (let k in enemies) {
