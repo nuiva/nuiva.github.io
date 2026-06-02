@@ -22,7 +22,7 @@ function change(newValue, oldValue) {
         : [newValue]);
 }
 const script = document.createElement("script");
-script.src = location.pathname.match(/(\w+)\.html$/)[1] + ".js";
+script.src = location.pathname.match(/(\w+)(?:\.html)?$/)[1] + ".js";
 script.onload = () => {
     function refreshTooltip(t, talent) {
         t.querySelector("#tooltip")?.remove();
