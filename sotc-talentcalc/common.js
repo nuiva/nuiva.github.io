@@ -54,7 +54,7 @@ script.onload = () => {
                 ...(t.points == 0
                     ? [
                         createElement("p", { id: "tooltipText" }, talent.text[0]),
-                        createElement("p", { id: "tooltipFooter", className: "needs-points" }, ["Click to learn"]),
+                        createElement("p", { id: "tooltipFooter", className: "req-can-increment" }, ["Click to learn"]),
                     ]
                     : [
                         createElement("p", { id: "tooltipText" }, talent.text[t.points - 1]),
@@ -63,18 +63,16 @@ script.onload = () => {
                                 createElement("br"),
                                 createElement("p", {}, ["Next rank:"]),
                                 createElement("p", { id: "tooltipText" }, talent.text[t.points]),
-                                createElement("p", { id: "tooltipFooter" }, [
-                                    createElement("p", { className: "needs-points" }, [
-                                        "Click to learn",
-                                    ]),
-                                    createElement("p", {}, ["Right-click to unlearn"]),
-                                ]),
                             ]
-                            : [
-                                createElement("p", { id: "tooltipFooter" }, [
-                                    "Right-click to unlearn",
-                                ]),
+                            : []),
+                        createElement("p", { id: "tooltipFooter" }, [
+                            createElement("p", { className: "req-can-increment" }, [
+                                "Click to learn",
                             ]),
+                            createElement("p", { className: "req-can-decrement" }, [
+                                "Right-click to unlearn",
+                            ]),
+                        ]),
                     ]),
             ]),
             createElement("div"),
@@ -82,7 +80,7 @@ script.onload = () => {
             createElement("div"),
         ]));
     }
-    const totalPoints = (function () {
+    const totalPointsLeft = (function () {
         const pointsleft = createElement("span", { id: "pointsleft" });
         document.body.appendChild(createElement("p", {}, ["Points left: ", pointsleft]));
         let current = 61;
@@ -95,6 +93,9 @@ script.onload = () => {
         }
         refresh();
         return {
+            get current() {
+                return current;
+            },
             increment() {
                 current += 1;
                 refresh();
@@ -109,6 +110,50 @@ script.onload = () => {
             },
         };
     })();
+    function refreshTalentClasses() {
+        for (const tree of document.querySelectorAll(".tree")) {
+            let currentRow = 0;
+            let currentRowPoints = 0;
+            let pointsAbove = 0;
+            let blockDecrementAboveRow;
+            for (const talent of tree.querySelectorAll(".talent")) {
+                talent.classList.toggle("has-talent-points", talent.points > 0);
+                talent.classList.toggle("can-increment", totalPointsLeft.current > 0 &&
+                    talent.points < talent.maxPoints &&
+                    tree.treePoints.current >= talent.requiredPoints &&
+                    (!talent.req ||
+                        tree
+                            .querySelectorAll(".talent")
+                            .values()
+                            .some((t) => t.pos.x === talent.req.x &&
+                            t.pos.y === talent.req.y &&
+                            t.points === t.maxPoints)));
+                if (talent.pos.y > currentRow) {
+                    currentRow = talent.pos.y;
+                    pointsAbove += currentRowPoints;
+                    currentRowPoints = 0;
+                }
+                currentRowPoints += talent.points;
+                if (talent.points && talent.requiredPoints >= pointsAbove) {
+                    blockDecrementAboveRow = currentRow;
+                }
+                talent.classList.toggle("can-decrement", talent.points > 0 &&
+                    !tree
+                        .querySelectorAll(".talent")
+                        .values()
+                        .some((t) => t.points &&
+                        t.req?.x === talent.pos.x &&
+                        t.req?.y === talent.pos.y));
+            }
+            if (blockDecrementAboveRow) {
+                for (const talent of tree.querySelectorAll(".talent")) {
+                    if (talent.pos.y < blockDecrementAboveRow) {
+                        talent.classList.remove("can-decrement");
+                    }
+                }
+            }
+        }
+    }
     const treecontainer = document.body.appendChild(createElement("div", { id: "treecontainer" }));
     for (const tree of data) {
         const treePoints = (() => {
@@ -134,14 +179,14 @@ script.onload = () => {
                     counter,
                 ]),
                 increment() {
-                    if (totalPoints.decrement()) {
+                    if (totalPointsLeft.decrement()) {
                         current += 1;
                         refresh();
                         return true;
                     }
                 },
                 decrement() {
-                    if (current > 0 && totalPoints.increment()) {
+                    if (current > 0 && totalPointsLeft.increment()) {
                         current -= 1;
                         refresh();
                         return true;
@@ -151,7 +196,7 @@ script.onload = () => {
         })();
         treecontainer.appendChild(createElement("div", { className: "singletreecontainer" }, [
             treePoints.header,
-            createElement("div", { className: "tree" }, [
+            createElement("div", { className: "tree", treePoints }, [
                 createElement("div", { className: "talentgrid" }, tree.talents.flatMap((talentRow, talentRowIndex) => talentRow.flatMap((talent, talentColumnIndex) => {
                     if (talent === null)
                         return [];
@@ -162,9 +207,27 @@ script.onload = () => {
                         talent.text.length.toString(),
                     ]);
                     const talentElement = createElement("div", {
-                        className: `talent needspts-${5 * talentRowIndex}`,
+                        className: `talent`,
                         points: 0,
+                        maxPoints: talent.text.length,
                         requiredPoints: talentRowIndex * 5,
+                        pos: { x: talentColumnIndex, y: talentRowIndex },
+                        req: talent.req === "up"
+                            ? {
+                                x: talentColumnIndex,
+                                y: talentRowIndex - talent.reqDist,
+                            }
+                            : talent.req === "left"
+                                ? {
+                                    x: talentColumnIndex - talent.reqDist,
+                                    y: talentRowIndex,
+                                }
+                                : talent.req === "right"
+                                    ? {
+                                        x: talentColumnIndex + talent.reqDist,
+                                        y: talentRowIndex,
+                                    }
+                                    : undefined,
                     }, [], {
                         gridRow: `${talentRowIndex + 1}`,
                         gridColumn: `${talentColumnIndex + 1}`,
@@ -174,30 +237,22 @@ script.onload = () => {
                         : undefined;
                     talentElement.append(createElement("button", {
                         onclick(ev) {
-                            if (talentElement.points < talent.text.length &&
-                                treePoints.current >= 5 * talentRowIndex &&
+                            if (talentElement.classList.contains("can-increment") &&
                                 treePoints.increment()) {
                                 spent.textContent = `${++talentElement.points}`;
                                 refreshTooltip(talentElement, talent);
+                                refreshTalentClasses();
                                 updateUrlFragment();
                             }
                             ev.preventDefault();
                         },
                         oncontextmenu(ev) {
-                            if (talentElement.points > 0 &&
+                            if (talentElement.classList.contains("can-decrement") &&
                                 treePoints.decrement()) {
-                                const allTalents = talentElement
-                                    .closest(".tree")
-                                    .querySelectorAll(".talent")
-                                    .values();
-                                const spentPoints = allTalents
-                                    .map((t) => t.points)
-                                    .reduce((a, b) => a + b);
-                                if (allTalents.every((t) => t.requiredPoints < spentPoints)) {
-                                    spent.textContent = `${--talentElement.points}`;
-                                    refreshTooltip(talentElement, talent);
-                                    updateUrlFragment();
-                                }
+                                spent.textContent = `${--talentElement.points}`;
+                                refreshTooltip(talentElement, talent);
+                                refreshTalentClasses();
+                                updateUrlFragment();
                             }
                             ev.preventDefault();
                         },
@@ -224,6 +279,7 @@ script.onload = () => {
             ], { backgroundImage: `url("${tree.bg}")` }),
         ]));
     }
+    refreshTalentClasses();
     if (location.hash) {
         for (const [treeSegment, tree] of zip(location.hash.replace("#", "").split("-"), document.querySelectorAll(".tree"))) {
             for (const [talentSegment, talent] of zip(treeSegment.split(""), tree.querySelectorAll(".talent button"))) {

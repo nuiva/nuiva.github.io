@@ -811,6 +811,7 @@ const data = [
                         "Increases your total Stamina by 2% and your total Strength by 4%.",
                         "Increases your total Stamina by 3% and your total Strength by 6%.",
                         "Increases your total Stamina by 4% and your total Strength by 8%.",
+                        "Increases your total Stamina by 5% and your total Strength by 10%.",
                     ]),
                 },
                 null,

@@ -782,6 +782,7 @@ const data = [
                         "Your successful ranged attacks have a 6% chance to increase your critical strike chance with all attacks by 4% for 8 sec.",
                         "Your successful ranged attacks have a 6% chance to increase your critical strike chance with all attacks by 6% for 8 sec.",
                         "Your successful ranged attacks have a 6% chance to increase your critical strike chance with all attacks by 8% for 8 sec.",
+                        "Your successful ranged attacks have a 6% chance to increase your critical strike chance with all attacks by 10% for 8 sec.",
                     ]),
                 },
                 null,

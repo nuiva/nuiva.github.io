@@ -827,6 +827,7 @@ const data = [
                         "The bonus healing effects of your healing over time spells is increased by 8%.",
                         "The bonus healing effects of your healing over time spells is increased by 12%.",
                         "The bonus healing effects of your healing over time spells is increased by 16%.",
+                        "The bonus healing effects of your healing over time spells is increased by 20%.",
                     ]),
                 },
                 null,

@@ -156,129 +156,21 @@ p:has(#pointsleft), #treecontainer {
 .treename::after {
     content: ": "
 }
-.needspts-0 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-0) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-0) & {
-            display: initial;
-        }
+.talent button {
+    filter: grayscale(1);
+    .talent.can-increment &, .talent.has-talent-points & {
+        filter: none;
     }
 }
-.needspts-5 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-5) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-5) & {
-            display: initial;
-        }
+.req-can-increment {
+    display: none;
+    .can-increment & {
+        display: inherit;
     }
 }
-.needspts-10 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-10) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-10) & {
-            display: initial;
-        }
-    }
-}
-.needspts-15 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-15) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-15) & {
-            display: initial;
-        }
-    }
-}
-.needspts-20 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-20) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-20) & {
-            display: initial;
-        }
-    }
-}
-.needspts-25 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-25) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-25) & {
-            display: initial;
-        }
-    }
-}
-.needspts-30 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-30) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-30) & {
-            display: initial;
-        }
-    }
-}
-.needspts-35 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-35) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-35) & {
-            display: initial;
-        }
-    }
-}
-.needspts-40 {
-    button {
-        filter: grayscale(1);
-        .singletreecontainer:has(.gotpts-40) & {
-            filter: none;
-        }
-    }
-    .needs-points {
-        display: none;
-        body:has(.gotpoints) .singletreecontainer:has(.gotpts-40) & {
-            display: initial;
-        }
+.req-can-decrement {
+    display: none;
+    .can-decrement & {
+        display: inherit;
     }
 }

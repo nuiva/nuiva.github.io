@@ -796,6 +796,7 @@ const data = [
                         "Increases your total Agility by 6% and increases the percentage damage bonus of Backstab and Hemorrhage by an additional 2%.",
                         "Increases your total Agility by 9% and increases the percentage damage bonus of Backstab and Hemorrhage by an additional 3%.",
                         "Increases your total Agility by 12% and increases the percentage damage bonus of Backstab and Hemorrhage by an additional 4%.",
+                        "Increases your total Agility by 15% and increases the percentage damage bonus of Backstab and Hemorrhage by an additional 5%.",
                     ]),
                     req: "up",
                     reqDist: 1,

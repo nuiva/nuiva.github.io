@@ -888,6 +888,7 @@ const data = [
                         "Increases the critical strike chance of all Judgements capable of a critical hit by 6% and reduces threat caused by all actions by 12% except when under the effects of Righteous Fury.",
                         "Increases the critical strike chance of all Judgements capable of a critical hit by 9% and reduces threat caused by all actions by 18% except when under the effects of Righteous Fury.",
                         "Increases the critical strike chance of all Judgements capable of a critical hit by 12% and reduces threat caused by all actions by 24% except when under the effects of Righteous Fury.",
+                        "Increases the critical strike chance of all Judgements capable of a critical hit by 15% and reduces threat caused by all actions by 30% except when under the effects of Righteous Fury.",
                     ]),
                     req: "up",
                     reqDist: 1,

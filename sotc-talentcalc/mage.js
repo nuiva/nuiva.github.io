@@ -860,6 +860,7 @@ const data = [
                         "Your Frostbolt spell gains an additional 4% of your bonus spell damage effects and an additional 2% chance to critically strike.",
                         "Your Frostbolt spell gains an additional 6% of your bonus spell damage effects and an additional 3% chance to critically strike.",
                         "Your Frostbolt spell gains an additional 8% of your bonus spell damage effects and an additional 4% chance to critically strike.",
+                        "Your Frostbolt spell gains an additional 10% of your bonus spell damage effects and an additional 5% chance to critically strike.",
                     ]),
                 },
                 null,
