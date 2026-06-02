@@ -850,3 +850,13 @@ const data = [
         ],
     },
 ];
+// @ts-ignore
+const otherChanges = [
+    {
+        name: "Revive",
+        icon: "https://wow.zamimg.com/images/wow/icons/medium/ability_druid_lunarguidance.jpg",
+        text: [
+            "Druids now have access to Revive from WotLK (a normal revive). Trainable at level 12.",
+        ],
+    },
+];

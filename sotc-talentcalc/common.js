@@ -289,5 +289,18 @@ script.onload = () => {
             }
         }
     }
+    document.body.append(createElement("div", { id: "otherchanges" }, [
+        createElement("h2", {}, ["Other changes"]),
+        ...otherChanges.map((change) => createElement("div", {}, [
+            createElement("div", { className: "title" }, [
+                createElement("img", {
+                    src: change?.icon ??
+                        "https://wow.zamimg.com/images/wow/icons/medium/classic_temp.jpg",
+                }),
+                createElement("span", {}, [change.name]),
+            ]),
+            createElement("ul", {}, change.text.map((t) => createElement("li", {}, [t]))),
+        ])),
+    ]));
 };
 document.body.appendChild(script);

@@ -174,3 +174,11 @@ p:has(#pointsleft), #treecontainer {
         display: inherit;
     }
 }
+#otherchanges * {
+    font-family: Verdana;
+}
+#otherchanges .title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

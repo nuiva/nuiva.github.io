@@ -620,34 +620,24 @@ const data = [
                     icon: "https://wow.zamimg.com/images/wow/icons/medium/spell_frost_windwalkon.jpg",
                     text: [
                         [
-                            "Reduces the mana cost of ",
-                            createElement("span", { className: "changed" }, [
-                                "all instant cast spells by 2%.",
-                            ]),
+                            "Reduces the mana cost of your Judgement and Seal spells by 3% ",
+                            change("and all other instant cast spells by 1%."),
                         ],
                         [
-                            "Reduces the mana cost of ",
-                            createElement("span", { className: "changed" }, [
-                                "all instant cast spells by 4%.",
-                            ]),
+                            "Reduces the mana cost of your Judgement and Seal spells by 6% ",
+                            change("and all other instant cast spells by 2%."),
                         ],
                         [
-                            "Reduces the mana cost of ",
-                            createElement("span", { className: "changed" }, [
-                                "all instant cast spells by 6%.",
-                            ]),
+                            "Reduces the mana cost of your Judgement and Seal spells by 9% ",
+                            change("and all other instant cast spells by 3%."),
                         ],
                         [
-                            "Reduces the mana cost of ",
-                            createElement("span", { className: "changed" }, [
-                                "all instant cast spells by 8%.",
-                            ]),
+                            "Reduces the mana cost of your Judgement and Seal spells by 12% ",
+                            change("and all other instant cast spells by 4%."),
                         ],
                         [
-                            "Reduces the mana cost of ",
-                            createElement("span", { className: "changed" }, [
-                                "all instant cast spells by 10%.",
-                            ]),
+                            "Reduces the mana cost of your Judgement and Seal spells by 15% ",
+                            change("and all other instant cast spells by 5%."),
                         ],
                     ],
                 },
@@ -908,6 +898,16 @@ const data = [
                 null,
                 null,
             ],
+        ],
+    },
+];
+// @ts-ignore
+const otherChanges = [
+    {
+        name: "Hand of Reckoning",
+        icon: "https://wow.zamimg.com/images/wow/icons/medium/spell_holy_unyieldingfaith.jpg",
+        text: [
+            "Paladins now have access to Hand of Reckoning from WotLK (a normal taunt). Trainable at level 10.",
         ],
     },
 ];
