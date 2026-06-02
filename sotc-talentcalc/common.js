@@ -21,6 +21,28 @@ function change(newValue, oldValue) {
         ]
         : [newValue]);
 }
+function updateUrlFragment() {
+    location.hash = Array.from(document
+        .querySelectorAll(".tree")
+        .values()
+        .map((tree) => Array.from(tree.querySelectorAll(".talent"))
+        .map((t) => t.points)
+        .join("")
+        .replace(/0+$/, "")))
+        .join("-")
+        .replace(/-+$/, "");
+}
+function* zip(a, b) {
+    const aIterator = a[Symbol.iterator]();
+    const bIterator = b[Symbol.iterator]();
+    while (true) {
+        const aValue = aIterator.next();
+        const bValue = bIterator.next();
+        if (aValue.done || bValue.done)
+            return [aValue.value, bValue.value];
+        yield [aValue.value, bValue.value];
+    }
+}
 const script = document.createElement("script");
 script.src = location.pathname.match(/(\w+)(?:\.html)?$/)[1] + ".js";
 script.onload = () => {
@@ -157,6 +179,7 @@ script.onload = () => {
                                 treePoints.increment()) {
                                 spent.textContent = `${++talentElement.points}`;
                                 refreshTooltip(talentElement, talent);
+                                updateUrlFragment();
                             }
                             ev.preventDefault();
                         },
@@ -173,6 +196,7 @@ script.onload = () => {
                                 if (allTalents.every((t) => t.requiredPoints < spentPoints)) {
                                     spent.textContent = `${--talentElement.points}`;
                                     refreshTooltip(talentElement, talent);
+                                    updateUrlFragment();
                                 }
                             }
                             ev.preventDefault();
@@ -199,6 +223,15 @@ script.onload = () => {
                 }))),
             ], { backgroundImage: `url("${tree.bg}")` }),
         ]));
+    }
+    if (location.hash) {
+        for (const [treeSegment, tree] of zip(location.hash.replace("#", "").split("-"), document.querySelectorAll(".tree"))) {
+            for (const [talentSegment, talent] of zip(treeSegment.split(""), tree.querySelectorAll(".talent button"))) {
+                for (let i = 0; i < parseInt(talentSegment); ++i) {
+                    talent.click();
+                }
+            }
+        }
     }
 };
 document.body.appendChild(script);
