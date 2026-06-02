@@ -54,15 +54,16 @@ body {
     background-color: black;
 }
 #tooltip {
-    display: none;
+    display: inline-grid;
+    visibility: hidden;
     grid-template-rows: 1fr 6px;
     grid-template-columns: 320px 6px;
     z-index: 10;
     position: absolute;
     top: 100%;
-    left: 50%;
+    left: 80%;
     .talent:hover & {
-        display: inline-grid;
+        visibility: visible;
     }
 }
 #tooltip div {
