@@ -1,0 +1,284 @@
+* {
+    color: white;
+}
+body {
+    background-color: black;
+}
+#treecontainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+.tree {
+    height: 580px;
+    width: 328px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.talentgrid {
+    display: inline-grid;
+    grid-template-columns: repeat(4, 44px);
+    grid-template-rows: repeat(9, 44px);
+    gap: 16px;
+    position: relative;
+}
+.talent {
+    position: relative;
+}
+.talent button {
+    background-color: transparent;
+    background-position: 4px 4px;
+    background-size: 36px 36px;
+    background-repeat: no-repeat;
+    border: none;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+.talenttexture {
+    width: 100%;
+    height: 100%;
+    background-image: url("https://wow.zamimg.com/images/Icon/medium/border/default.png");
+}
+.tree .points {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding: 0 1px;
+    border: 1px solid black;
+    border-radius: 3px;
+    font-size: xx-small;
+    background-color: black;
+}
+#tooltip {
+    display: none;
+    grid-template-rows: 1fr 6px;
+    grid-template-columns: 320px 6px;
+    z-index: 10;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    .talent:hover & {
+        display: inline-grid;
+    }
+}
+#tooltip div {
+    border: 0;
+    background: url("https://wow.zamimg.com/images/wow/tooltip.png");
+    text-align: left;
+    &:first-child {
+        padding: 6px 0 0 6px;
+    }
+    &:nth-child(2) {
+        background-position: right top;
+    }
+    &:nth-child(3) {
+        background-position: left bottom;
+    }
+    &:nth-child(4) {
+        background-position: right bottom;
+    }
+}
+#tooltip p {
+    margin: 0;
+    font-family: Verdana;
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: normal;
+}
+#tooltipTitle, #tooltipTitle ruby {
+    font-size: 14px;
+    line-height: 19px;
+}
+#tooltipText {
+    color: #ffd100;
+}
+#tooltip #tooltipFooter {
+    margin-top: 10px;
+}
+#tooltipFooter, #tooltipFooter * {
+    color: #1eff00;
+}
+.changed, .changed ruby {
+    color: lightblue;
+    ruby-align: center;
+    rt {
+        color: red;
+    }
+}
+.talent:has(.changed) button::after {
+    content: "New!";
+    color: yellow;
+    text-shadow:
+        1px 1px 1px black,
+        -1px -1px 1px black,
+        1px -1px 1px black,
+        -1px 1px 1px black;
+    position: absolute;
+    top: -8px;
+    left: 0;
+}
+.arrow-up {
+    background-image: url("https://wow.zamimg.com/images/TalentCalc/arrows/down.png");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    position: absolute;
+    width: 44px;
+    position-area: top;
+}
+.arrow-left {
+    background-image: url("https://wow.zamimg.com/images/TalentCalc/arrows/right.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    position: absolute;
+    height: 44px;
+    position-area: left;
+}
+.arrow-right {
+    background-image: url("https://wow.zamimg.com/images/TalentCalc/arrows/left.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    position: absolute;
+    height: 44px;
+    position-area: right;
+}
+p:has(#pointsleft), #treecontainer {
+    font-family: Verdana;
+}
+.treeheader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.treename::after {
+    content: ": "
+}
+.needspts-0 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-0) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-0) & {
+            display: initial;
+        }
+    }
+}
+.needspts-5 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-5) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-5) & {
+            display: initial;
+        }
+    }
+}
+.needspts-10 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-10) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-10) & {
+            display: initial;
+        }
+    }
+}
+.needspts-15 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-15) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-15) & {
+            display: initial;
+        }
+    }
+}
+.needspts-20 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-20) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-20) & {
+            display: initial;
+        }
+    }
+}
+.needspts-25 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-25) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-25) & {
+            display: initial;
+        }
+    }
+}
+.needspts-30 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-30) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-30) & {
+            display: initial;
+        }
+    }
+}
+.needspts-35 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-35) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-35) & {
+            display: initial;
+        }
+    }
+}
+.needspts-40 {
+    button {
+        filter: grayscale(1);
+        .singletreecontainer:has(.gotpts-40) & {
+            filter: none;
+        }
+    }
+    .needs-points {
+        display: none;
+        body:has(.gotpoints) .singletreecontainer:has(.gotpts-40) & {
+            display: initial;
+        }
+    }
+}
